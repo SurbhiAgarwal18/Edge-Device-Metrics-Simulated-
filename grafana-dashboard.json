@@ -1,0 +1,177 @@
+{
+  "dashboard": {
+    "title": "Edge Device Metrics Dashboard",
+    "tags": ["edge", "devices", "metrics"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "type": "timeseries",
+        "title": "CPU Usage by Device",
+        "targets": [
+          {
+            "expr": "edge_device_cpu_percent",
+            "legendFormat": "{{device_id}} - {{device_type}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 2,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "type": "timeseries",
+        "title": "RAM Usage by Device",
+        "targets": [
+          {
+            "expr": "edge_device_ram_percent",
+            "legendFormat": "{{device_id}} - {{device_type}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 3,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "type": "timeseries",
+        "title": "Device Temperature",
+        "targets": [
+          {
+            "expr": "edge_device_temperature_celsius",
+            "legendFormat": "{{device_id}} - {{device_type}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "celsius",
+            "min": 0,
+            "max": 100
+          }
+        }
+      },
+      {
+        "id": 4,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "type": "timeseries",
+        "title": "Network Sent (Bytes)",
+        "targets": [
+          {
+            "expr": "edge_device_network_sent_bytes",
+            "legendFormat": "{{device_id}} - {{device_type}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "type": "timeseries",
+        "title": "Network Received (Bytes)",
+        "targets": [
+          {
+            "expr": "edge_device_network_received_bytes",
+            "legendFormat": "{{device_id}} - {{device_type}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "type": "stat",
+        "title": "Device Status",
+        "targets": [
+          {
+            "expr": "edge_device_status",
+            "legendFormat": "{{device_id}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "0": {
+                    "text": "Offline",
+                    "color": "red"
+                  },
+                  "1": {
+                    "text": "Online",
+                    "color": "green"
+                  },
+                  "2": {
+                    "text": "High Load",
+                    "color": "orange"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "refresh": "5s",
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    }
+  },
+  "overwrite": true
+}

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edge Device Metrics Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="top-bar">
+      <div>
+        <h1>Edge Device Metrics Dashboard</h1>
+        <p class="subtitle">
+          Simulated metrics for Kubernetes edge devices (OJT Project)
+        </p>
+      </div>
+      <div class="top-right">
+        <div class="filter">
+          <label for="statusFilter">Filter by status:</label>
+          <select id="statusFilter">
+            <option value="All">All</option>
+            <option value="Online">Online</option>
+            <option value="High Load">High Load</option>
+          </select>
+        </div>
+        <button id="refreshBtn" class="btn primary">Refresh Data</button>
+        <button id="exportBtn" class="btn">Export CSV</button>
+        <span class="last-updated">
+          Last updated: <span id="lastUpdated">--:--:--</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- TABLE -->
+    <section class="table-section">
+      <div class="card table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Device ID</th>
+              <th>Type</th>
+              <th>CPU %</th>
+              <th>RAM %</th>
+              <th>Temp (°C)</th>
+              <th>Net Sent (bytes)</th>
+              <th>Net Recv (bytes)</th>
+              <th>Status</th>
+              <th>Anomaly</th>
+            </tr>
+          </thead>
+          <tbody id="devicesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="charts-grid">
+      <div class="card chart-card">
+        <h3>CPU Usage Over Time</h3>
+        <canvas id="cpuChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>RAM Usage Over Time</h3>
+        <canvas id="ramChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Temperature Over Time</h3>
+        <canvas id="tempChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Network Sent / Received</h3>
+        <canvas id="netChart"></canvas>
+      </div>
+    </section>
+
+    GRAFANA IFRAME
+    <section class="grafana-section">
+      <h2>Grafana Dashboard (Embedded)</h2>
+      <p class="subtitle">
+        Once Grafana is running on port 3000, it will appear below inside this dashboard.
+      </p>
+      <div class="card grafana-card">
+        <iframe
+          src="http://localhost:3000"
+          class="grafana-frame"
+          title="Grafana Dashboard"
+        ></iframe>
+         
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>

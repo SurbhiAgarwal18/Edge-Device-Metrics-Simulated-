@@ -1,0 +1,12 @@
+
+groups:
+  - name: edge-alerts
+    rules:
+      - alert: HighEdgeCPU
+        expr: edge_device_cpu_usage_percent > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage on edge device"
+          description: "CPU > 80% for more than 1 minute"
