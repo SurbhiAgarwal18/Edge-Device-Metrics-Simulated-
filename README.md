@@ -47,7 +47,7 @@ A comprehensive monitoring solution for edge devices using Flask, Prometheus, an
 - **Metrics**: Prometheus Client
 - **Monitoring**: Prometheus, Grafana
 - **Frontend**: HTML, CSS, JavaScript, Chart.js
-- **Containerization**: Docker, Docker Compose
+- **Containerization**: Docker, Docker Compose, mini
 - **Orchestration**: Kubernetes (optional)
 
 ## Project Structure
@@ -63,11 +63,11 @@ edge_metrics_ojt_final/
 ├── alert_rules.yml         # Alert definitions
 ├── grafana-dashboard.json  # Pre-configured Grafana dashboard
 ├── k8s/                    # Kubernetes manifests
-│   ├── namespace.yaml
-│   ├── prometheus-config.yaml
-│   ├── exporter-deployment.yaml
-│   ├── prometheus-deployment.yaml
-│   └── grafana-deployment.yaml
+│   ├── namespace.yaml                  # Creates edge-metrics namespace
+│   ├── prometheus-config.yaml          # Prometheus config and alert rules
+│   ├── exporter-deployment.yaml        # Flask exporter deployment & service
+│   ├── prometheus-deployment.yaml      # Prometheus deployment & service
+│   └── grafana-deployment.yaml         # Grafana deployment & service
 ├── static/
 │   ├── index.html         # Dashboard UI
 │   ├── dashboard.js       # Frontend logic
