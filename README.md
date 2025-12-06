@@ -66,12 +66,7 @@ edge_metrics_ojt_final/
 │   ├── index.html         # Dashboard UI
 │   ├── dashboard.js       # Frontend logic
 │   └── style.css          # Styling
-└── k8s/                   # Kubernetes manifests
-    ├── exporter-deployment.yaml
-    ├── prometheus-deployment.yaml
-    ├── grafana-deployment.yaml
-    └── README.md
-```
+
 
 ## Prerequisites
 
@@ -233,9 +228,6 @@ docker-compose logs -f prometheus
 docker-compose logs -f grafana
 ```
 
-## Kubernetes Deployment
-
-For Kubernetes deployment instructions, see [k8s/README.md](k8s/README.md)
 
 Quick deploy:
 
@@ -323,6 +315,33 @@ docker-compose down
 # Stop and remove everything (including volumes)
 docker-compose down -v
 ```
+## How It Works
+
+devices.py generates random CPU, RAM, temperature, and network metrics.
+exporter.py exposes:
+/api/devices → JSON data for the frontend
+/metrics → Prometheus-format data
+The frontend fetches new metrics every second.
+UI updates in real time using JavaScript.
+Deployed on Render using Gunicorn for production.
+
+## Images
+metrics-endpoint
+<img width="1453" height="969" alt="Screenshot 2025-12-05 131054" src="https://github.com/user-attachments/assets/37d94a81-937c-4615-b025-784399a03369" />
+
+prometheus-cpu-usage-graph
+<img width="1888" height="919" alt="Screenshot 2025-12-05 131243" src="https://github.com/user-attachments/assets/22371df2-23fa-45f8-964a-3b47b065ce1d" />
+
+prometheus-memory-graph
+<img width="1862" height="873" alt="Screenshot 2025-12-05 130744 1" src="https://github.com/user-attachments/assets/b772cba2-a15a-4813-860f-5f855f59d02b" />
+
+dashboard
+<img width="1646" height="844" alt="Screenshot 2025-12-04 205224" src="https://github.com/user-attachments/assets/a3b4cb72-4042-4244-827e-57c420b33935" />
+<img width="1175" height="852" alt="Screenshot 2025-12-04 203500" src="https://github.com/user-attachments/assets/55e2a7ea-bcab-40f3-aa93-4040336a9742" />
+
+## deployment link
+https://edge-device-metrics-simulated-2.onrender.com
+
 
 ## License
 

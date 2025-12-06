@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: edge-metrics
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+
+    rule_files:
+      - /etc/prometheus/alert_rules.yml
+
+    scrape_configs:
+      - job_name: 'edge-devices'
+        static_configs:
+          - targets: ['exporter:5000']
+
+  alert_rules.yml: |
+    groups:
+      - name: edge_device_alerts
+        interval: 10s
+        rules:
+          - alert: HighCPUUsage
+            expr: edge_device_cpu_usage_percent > 80
+            for: 1m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU usage on {{ $labels.device_id }}"
+              description: "Device {{ $labels.device_id }} has CPU usage above 80% (current: {{ $value }}%)"
+
+          - alert: HighTemperature
+            expr: edge_device_temperature_celsius > 75
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "High temperature on {{ $labels.device_id }}"
+              description: "Device {{ $labels.device_id }} temperature is above 75°C (current: {{ $value }}°C)"
+
+          - alert: AnomalyDetected
+            expr: edge_device_anomaly_flag == 1
+            for: 30s
+            labels:
+              severity: warning
+            annotations:
+              summary: "Anomaly detected on {{ $labels.device_id }}"
+              description: "Device {{ $labels.device_id }} is showing anomalous behavior"
