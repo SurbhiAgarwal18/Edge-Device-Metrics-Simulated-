@@ -411,7 +411,8 @@ Deployed on Render using Gunicorn for production.
 
 ## Images
 metrics-endpoint
-<img width="1453" height="969" alt="Screenshot 2025-12-05 131054" src="https://github.com/user-attachments/assets/37d94a81-937c-4615-b025-784399a03369" />
+<img width="1453" height="872" alt="Screenshot 2025-12-05 131054" src="https://github.com/user-attachments/assets/091f9c7e-cb91-4672-a5ac-b00b7a379bd3" />
+
 
 prometheus-cpu-usage-graph
 <img width="1888" height="919" alt="Screenshot 2025-12-05 131243" src="https://github.com/user-attachments/assets/22371df2-23fa-45f8-964a-3b47b065ce1d" />
@@ -423,9 +424,12 @@ dashboard
 <img width="1646" height="844" alt="Screenshot 2025-12-04 205224" src="https://github.com/user-attachments/assets/a3b4cb72-4042-4244-827e-57c420b33935" />
 <img width="1175" height="852" alt="Screenshot 2025-12-04 203500" src="https://github.com/user-attachments/assets/55e2a7ea-bcab-40f3-aa93-4040336a9742" />
 
+kubernate dashboard
+<img width="1912" height="1014" alt="image" src="https://github.com/user-attachments/assets/da8c6f9b-3008-428a-8420-8a2a3c25de0a" />
+
 ## deployment link
 https://edge-device-metrics-simulated-2.onrender.com
-
+https://edge-device-metrics-simulated-2.onrender.com/metrics
 
 ## License
 
