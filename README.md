@@ -62,11 +62,17 @@ edge_metrics_ojt_final/
 ├── prometheus.yml          # Prometheus configuration
 ├── alert_rules.yml         # Alert definitions
 ├── grafana-dashboard.json  # Pre-configured Grafana dashboard
+├── k8s/                    # Kubernetes manifests
+│   ├── namespace.yaml
+│   ├── prometheus-config.yaml
+│   ├── exporter-deployment.yaml
+│   ├── prometheus-deployment.yaml
+│   └── grafana-deployment.yaml
 ├── static/
 │   ├── index.html         # Dashboard UI
 │   ├── dashboard.js       # Frontend logic
 │   └── style.css          # Styling
-
+ 
 
 ## Prerequisites
 
@@ -229,20 +235,98 @@ docker-compose logs -f grafana
 ```
 
 
-Quick deploy:
+### Kubernetes Deployment
+
+Deploy the edge metrics monitoring stack on Kubernetes Desktop or Minikube.
+
+#### Prerequisites
+
+- Docker Desktop with Kubernetes enabled, OR
+- Minikube installed and running
+- kubectl configured
+
+#### Deploy to Kubernetes Desktop
 
 ```bash
-# Build and load image
-docker build -t edge-metrics-exporter:latest .
-minikube image load edge-metrics-exporter:latest
+# 1. Switch to Docker Desktop context
+kubectl config use-context docker-desktop
 
-# Deploy
+# 2. Build Docker image
+docker build -t edge-metrics-exporter:latest .
+
+# 3. Deploy all resources
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/prometheus-config.yaml
+kubectl apply -f k8s/exporter-deployment.yaml
+kubectl apply -f k8s/prometheus-deployment.yaml
+kubectl apply -f k8s/grafana-deployment.yaml
+
+# 4. Verify deployment
+kubectl get pods -n edge-metrics
+
+# 5. Access services (run each in separate terminal)
+kubectl port-forward -n edge-metrics service/exporter 5000:5000
+kubectl port-forward -n edge-metrics service/prometheus 9090:9090
+kubectl port-forward -n edge-metrics service/grafana 3000:3000
+```
+
+#### Deploy to Minikube
+
+```bash
+# 1. Start Minikube
+minikube start
+
+# 2. Build image in Minikube's Docker environment
+eval $(minikube docker-env)
+docker build -t edge-metrics-exporter:latest .
+
+# 3. Deploy all resources
 kubectl apply -f k8s/
 
-# Access services
-minikube service exporter --url
-minikube service prometheus --url
-minikube service grafana --url
+# 4. Verify deployment
+kubectl get pods -n edge-metrics
+
+# 5. Access services
+kubectl port-forward -n edge-metrics service/exporter 5000:5000
+kubectl port-forward -n edge-metrics service/prometheus 9090:9090
+kubectl port-forward -n edge-metrics service/grafana 3000:3000
+
+# Or use Minikube dashboard
+minikube dashboard
+```
+
+#### Kubernetes Resources
+
+The `k8s/` directory contains:
+
+- `namespace.yaml` - Creates edge-metrics namespace
+- `prometheus-config.yaml` - ConfigMap with Prometheus config and alert rules
+- `exporter-deployment.yaml` - Flask exporter deployment and service
+- `prometheus-deployment.yaml` - Prometheus deployment and service
+- `grafana-deployment.yaml` - Grafana deployment and service
+
+#### Access Applications
+
+After port-forwarding, access:
+
+- **Exporter Dashboard**: http://localhost:5000
+- **Prometheus**: http://localhost:9090
+- **Grafana**: http://localhost:3000
+
+#### View in Kubernetes Desktop UI
+
+1. Open Kubernetes Desktop UI
+2. Select namespace: **edge-metrics**
+3. View running pods, deployments, and services
+
+#### Cleanup Kubernetes Resources
+
+```bash
+# Delete all resources
+kubectl delete namespace edge-metrics
+
+# Or delete individually
+kubectl delete -f k8s/
 ```
 
 ## Troubleshooting
