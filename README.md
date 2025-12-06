@@ -428,7 +428,9 @@ kubernate dashboard
 <img width="1912" height="1014" alt="image" src="https://github.com/user-attachments/assets/da8c6f9b-3008-428a-8420-8a2a3c25de0a" />
 
 ## deployment link
+
 https://edge-device-metrics-simulated-2.onrender.com
+
 https://edge-device-metrics-simulated-2.onrender.com/metrics
 
 ## License
