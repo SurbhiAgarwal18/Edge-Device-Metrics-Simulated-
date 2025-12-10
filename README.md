@@ -425,7 +425,9 @@ dashboard
 <img width="1175" height="852" alt="Screenshot 2025-12-04 203500" src="https://github.com/user-attachments/assets/55e2a7ea-bcab-40f3-aa93-4040336a9742" />
 
 kubernate dashboard
-<img width="1912" height="1014" alt="image" src="https://github.com/user-attachments/assets/da8c6f9b-3008-428a-8420-8a2a3c25de0a" />
+<img width="1752" height="782" alt="Screenshot 2025-12-10 220419" src="https://github.com/user-attachments/assets/06629004-9295-4259-bc99-a27a6e70fa01" />
+
+
 
 ## deployment link
 
